@@ -8,6 +8,14 @@ const routes = requireDir('./routes');
 
 const PORT = 8080;
 
+// Allow CORS
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  console.log(req.url)
+  next();
+});
+
 // Serve static files from root
 app.use(express.static('static'));
 
