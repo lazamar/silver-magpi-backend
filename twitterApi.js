@@ -2,19 +2,19 @@ const credentials = require('./credentials.json');
 const Twitter = require('twitter');
 
 function handleResponse(resolve, reject) {
-  return (err, tweets) => {
-    return err ? reject(err) : resolve(tweets);
+  return (err, response) => {
+    return err ? reject(err) : resolve(response);
   };
 }
 
-function twitterGet(client, url, queryParams) {
+function twitterCall(method, client, url, reqParams) {
   return new Promise((resolve, reject) => {
     const responseHandler = handleResponse(resolve, reject);
-    const params = queryParams
-      ? [url, queryParams, responseHandler]
+    const params = reqParams
+      ? [url, reqParams, responseHandler]
       : [url, responseHandler];
 
-    client.get.apply(client, params);
+    client[method].apply(client, params);
   });
 }
 
@@ -23,7 +23,7 @@ module.exports = (function () {
   const client = new Twitter(credentials);
 
   const API = {};
-  API.userHome = () => twitterGet(client, 'statuses/home_timeline');
-
+  API.userHome = () => twitterCall('get', client, 'statuses/home_timeline');
+  API.postUpdate = status => twitterCall('post', client, 'statuses/update', { status });
   return API;
 }());
