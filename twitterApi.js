@@ -25,5 +25,6 @@ module.exports = (function () {
   const API = {};
   API.userHome = () => twitterCall('get', client, 'statuses/home_timeline');
   API.postUpdate = status => twitterCall('post', client, 'statuses/update', { status });
+  API.userMentions = () => twitterCall('get', client, 'statuses/mentions_timeline');
   return API;
 }());

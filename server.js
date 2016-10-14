@@ -24,9 +24,9 @@ app.use((req, res, next) => {
 app.use(express.static('static'));
 
 // Routes
-app.get('/home', routes.home);
-app.post('/statusUpdate', routes.statusUpdate);
-
+Object.keys(routes).forEach(route => {
+  app.get(`/${route}`, routes[route]);
+});
 
 http.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);

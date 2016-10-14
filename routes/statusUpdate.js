@@ -8,7 +8,7 @@ module.exports = (req, res) => {
   }, DELAY);
 
   const status = req.body.status;
-  console.log({ status });
+  console.log('Request body:', JSON.stringify(req.body));
 
   twitter.postUpdate(status)
     .then(response => send(response))
