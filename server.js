@@ -16,7 +16,12 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  console.log(req.url);
+
+  console.log(`
+---------------------------------------
+${req.url}
+Request body: ${JSON.stringify(req.body)}
+---------------------------------------`);
   next();
 });
 
@@ -24,9 +29,9 @@ app.use((req, res, next) => {
 app.use(express.static('static'));
 
 // Routes
-Object.keys(routes).forEach(route => {
-  app.get(`/${route}`, routes[route]);
-});
+app.get('/home', routes.home);
+app.get('/mentions', routes.mentions);
+app.post('/statusUpdate', routes.statusUpdate);
 
 http.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);
