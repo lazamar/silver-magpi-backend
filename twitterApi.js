@@ -26,5 +26,12 @@ module.exports = (function () {
   API.userHome = () => twitterCall('get', client, 'statuses/home_timeline');
   API.postUpdate = status => twitterCall('post', client, 'statuses/update', { status });
   API.userMentions = () => twitterCall('get', client, 'statuses/mentions_timeline');
+  API.userSearch = query =>
+    twitterCall(
+      'get',
+      client,
+      'users/search',
+      { q: query, count: 5, include_entities: false }
+    );
   return API;
 }());

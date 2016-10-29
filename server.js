@@ -20,7 +20,8 @@ app.use((req, res, next) => {
   console.log(`
 ---------------------------------------
 ${req.url}
-Request body: ${JSON.stringify(req.body)}
+body: ${JSON.stringify(req.body)}
+query: ${JSON.stringify(req.query)}
 ---------------------------------------`);
   next();
 });
@@ -32,6 +33,7 @@ app.use(express.static('static'));
 app.get('/home', routes.home);
 app.get('/mentions', routes.mentions);
 app.post('/status-update', routes['status-update']);
+app.get('/user-search', routes['user-search']);
 
 http.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);
