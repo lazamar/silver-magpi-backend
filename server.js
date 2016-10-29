@@ -31,7 +31,7 @@ app.use(express.static('static'));
 // Routes
 app.get('/home', routes.home);
 app.get('/mentions', routes.mentions);
-app.post('/statusUpdate', routes.statusUpdate);
+app.post('/status-update', routes['status-update']);
 
 http.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);
