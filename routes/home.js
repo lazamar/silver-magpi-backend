@@ -5,7 +5,7 @@ const twitter = require('../twitterApi');
 module.exports = (req, res) => {
 
   twitter.userHome()
-    .then(tweets => send(res, { tweets }))
+    .then(tweets => send(res, { tweets }, 0))
     // If there is an error we will send a default response
     // while during testing
     .catch(err => {
