@@ -1,5 +1,5 @@
-const { send } = rootRequire('utils');
-const twitter = rootRequire('twitter-api');
+const { send } = require('../utils');
+const twitter = require('../twitter-api');
 const defaultResponse = require('./home-fallback-response.json');
 
 module.exports = (req, res) => {

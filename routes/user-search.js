@@ -1,5 +1,5 @@
-const { send, cache } = rootRequire('utils');
-const twitter = rootRequire('twitter-api');
+const { send, cache } = require('../utils');
+const twitter = require('../twitter-api');
 
 module.exports = (req, res) => {
   const status = req.query.q;
