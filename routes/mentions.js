@@ -1,6 +1,6 @@
-const { send } = require('../utils');
+const { send } = rootRequire('utils');
+const twitter = rootRequire('twitter-api');
 
-const twitter = require('../twitterApi');
 module.exports = (req, res) => {
   twitter.userMentions()
     .then(tweets => send(res, { tweets }))

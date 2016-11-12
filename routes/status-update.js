@@ -1,7 +1,6 @@
-const twitter = require('../twitterApi');
-const fakeResponse = require('./tweetResponse.json');
-const { send } = require('../utils');
-
+const twitter = rootRequire('twitter-api');
+const fakeResponse = require('./fake-tweet-posted.json');
+const { send } = rootRequire('utils');
 
 module.exports = (req, res) => {
   const status = req.body.status;
