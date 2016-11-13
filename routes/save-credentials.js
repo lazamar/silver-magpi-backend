@@ -5,7 +5,13 @@ const convertTokenUrl = 'https://api.twitter.com/oauth/access_token';
 
 // This endpoint is the oauth_callback url from
 // https://dev.twitter.com/web/sign-in/implementing
+//
+// Twitter will call this endpoint with the oauth_verifier value,
+// which we will immediately exchange for a user access token and
+// access token secret.
+// At the end of this function, the user token and secret are saved in the database.
 module.exports = (req, res) => {
+  // Collect verifier
   const { oauth_token, oauth_verifier } = req.query;
 
   const oauth = {
@@ -15,6 +21,7 @@ module.exports = (req, res) => {
     verifier: oauth_verifier,
   };
 
+  // Exchange verifier for access token and access token secret
   new Promise((resolve, reject) => {
     request.post(
       { url: convertTokenUrl, oauth },
@@ -24,7 +31,7 @@ module.exports = (req, res) => {
   .then(body => {
     const authenticatedData = qs.parse(body);
     const {
-      oauth_token,
+      oauth_token, // this is not the same oauth_token as before. This is the user access token
       oauth_token_secret,
       user_id,
       screen_name,
