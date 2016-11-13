@@ -30,7 +30,7 @@ query: ${JSON.stringify(req.query)}
 });
 
 // Serve static files from root
-app.use(express.static('static'));
+app.use('/', express.static('static'));
 
 // Routes
 app.get('/home', routes.home);
