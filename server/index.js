@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const requireDir = require('require-dir-all');
 const routes = requireDir('../routes');
@@ -30,7 +31,7 @@ query: ${JSON.stringify(req.query)}
 });
 
 // Serve static files from root
-app.use('/', express.static('static'));
+app.use('/', express.static(path.join(__dirname, '../static')));
 
 // Routes
 app.get('/home', routes.home);
