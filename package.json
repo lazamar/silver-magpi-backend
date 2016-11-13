@@ -4,7 +4,7 @@
   "description": "Server for Silver Magpie, Elm Twitter client for Chrome",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node dev.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "express": "^4.14.0",
+    "mongodb": "^2.2.11",
     "require-dir-all": "^0.4.9",
     "twitter": "^1.4.0"
   }

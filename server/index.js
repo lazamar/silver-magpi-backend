@@ -31,5 +31,6 @@ app.get('/home', routes.home);
 app.get('/mentions', routes.mentions);
 app.post('/status-update', routes['status-update']);
 app.get('/user-search', routes['user-search']);
+app.get('/save-credentials', routes['save-credentials']);
 
 module.exports = app;
