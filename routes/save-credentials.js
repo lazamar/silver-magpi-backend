@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 const db = require('../database');
 const request = require('request');
 const qs = require('querystring');
@@ -11,18 +13,13 @@ const convertTokenUrl = 'https://api.twitter.com/oauth/access_token';
 // access token secret.
 // At the end of this function, the user token and secret are saved in the database.
 module.exports = (req, res) => {
-  // Collect verifier
-  const { oauth_token, oauth_verifier } = req.query;
-
   const oauth = {
     consumer_key: process.env.CONSUMER_KEY,
     consumer_secret: process.env.CONSUMER_SECRET,
-    token: oauth_token,
-    verifier: oauth_verifier,
+    token: req.query.oauth_token,
+    // Collect verifier
+    verifier: req.query.oauth_verifier,
   };
-
-  console.log('Save credentials parameters:');
-  console.dir(oauth);
 
   // Exchange verifier for access token and access token secret
   new Promise((resolve, reject) => {
@@ -40,12 +37,16 @@ module.exports = (req, res) => {
       screen_name,
     } = authenticatedData;
 
-    console.log(authenticatedData);
+    console.log(`Saving authenticated data for user ${screen_name}`);
+    console.dir(authenticatedData);
 
-    db.saveCredentials(oauth_token, oauth_token_secret);
-    res.send();
+    return db.saveCredentials({
+      oauth_token, // this is not the same oauth_token as before. This is the user access token
+      oauth_token_secret,
+      user_id,
+      screen_name,
+    });
   })
-  .catch(err => {
-    res.status(500).send(`{ error: ${err}}`);
-  });
+  .then(() => res.send()) // TODO: render a thank you page in here
+  .catch(err => res.status(500).send(`{ error: ${err}}`));
 };

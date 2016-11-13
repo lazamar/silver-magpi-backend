@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const dbDriver = require('./driver');
 
 let db;
@@ -23,18 +24,20 @@ module.exports = {};
  * @param  {String} accesTokenSecret
  * @return {Promise<void>} resolved when the record is successfully saved.
  */
-module.exports.saveCredentials = (accessTokenKey, accesTokenSecret) => {
+module.exports.saveCredentials = ({ oauth_token, oauth_token_secret, user_id, screen_name }) => {
   const record = {
-    key: accessTokenKey,
-    secret: accesTokenSecret,
+    key: oauth_token,
+    secret: oauth_token_secret,
+    user_id,
+    screen_name,
   };
 
   // Remove any previous record with the same key
   return dbDriver.remove(collections.credentials, { key: record.key })
     // Save key and password in the database
     .then(() => dbDriver.insert(collections.credentials, record))
-    .then(() => console.log(`Credentials for ${accessTokenKey} saved successfully`))
-    .catch(err => console.log(`Failed to save credentials for ${accessTokenKey}: ${err}`));
+    .then(() => console.log(`Credentials for ${screen_name} saved successfully`))
+    .catch(err => console.log(`Failed to save credentials for ${screen_name}: ${err}`));
 };
 
 /**
