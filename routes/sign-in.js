@@ -9,6 +9,8 @@ const oauth = {
   consumer_secret: process.env.CONSUMER_SECRET,
 };
 
+console.log('Callback url: ', oauth.callback);
+
 module.exports = (req, res) => {
   // Step 1 of 2: Get a request token
   new Promise((resolve, reject) => {
@@ -31,5 +33,8 @@ module.exports = (req, res) => {
     // Step 2 of 2: Redirect the user to sign-in with Twitter.
     // The next steps will be made at the oauth callback url.
     res.redirect(301, `https://api.twitter.com/oauth/authorize?oauth_token=${oauth_token}`);
+  })
+  .catch(err => {
+    res.status(500).send(`{ error: ${err}}`);
   });
 };

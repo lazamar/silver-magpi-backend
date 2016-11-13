@@ -29,7 +29,10 @@ module.exports.saveCredentials = (accessTokenKey, accesTokenSecret) => {
     secret: accesTokenSecret,
   };
 
-  return dbDriver.insert(collections.credentials, record)
+  // Remove any previous record with the same key
+  return dbDriver.remove(collections.credentials, { key: record.key })
+    // Save key and password in the database
+    .then(() => dbDriver.insert(collections.credentials, record))
     .then(() => console.log(`Credentials for ${accessTokenKey} saved successfully`))
     .catch(err => console.log(`Failed to save credentials for ${accessTokenKey}: ${err}`));
 };

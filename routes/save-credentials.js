@@ -21,6 +21,9 @@ module.exports = (req, res) => {
     verifier: oauth_verifier,
   };
 
+  console.log('Save credentials parameters:');
+  console.dir(oauth);
+
   // Exchange verifier for access token and access token secret
   new Promise((resolve, reject) => {
     request.post(
@@ -41,5 +44,8 @@ module.exports = (req, res) => {
 
     db.saveCredentials(oauth_token, oauth_token_secret);
     res.send();
+  })
+  .catch(err => {
+    res.status(500).send(`{ error: ${err}}`);
   });
 };
