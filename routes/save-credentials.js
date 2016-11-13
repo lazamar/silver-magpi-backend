@@ -47,6 +47,6 @@ module.exports = (req, res) => {
       screen_name,
     });
   })
-  .then(() => res.send()) // TODO: render a thank you page in here
+  .then(() => res.redirect(301, './thank-you.html'))
   .catch(err => res.status(500).send(`{ error: ${err}}`));
 };
