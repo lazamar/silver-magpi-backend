@@ -9,11 +9,17 @@ const routes = requireDir('../routes');
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-// Allow CORS
 app.use((req, res, next) => {
+  // Allow CORS
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 
+  // Disable cache for all endpoints
+  res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.header('Pragma', 'no-cache');
+  res.header('Expires', 0);
+
+  // Log request info
   console.log(`
 ---------------------------------------
 ${req.url}

@@ -1,4 +1,4 @@
-
+/* eslint-disable camelcase */
 const request = require('request');
 const qs = require('querystring');
 const requestTokenUrl = 'https://api.twitter.com/oauth/request_token';
