@@ -21,6 +21,10 @@ module.exports = (req, res) => {
     verifier: req.query.oauth_verifier,
   };
 
+  // This is used to link the authentication with the
+  // app_session_id of the client authenticated.
+  const access_request_token = req.query.oauth_token;
+
   // Exchange verifier for access token and access token secret
   new Promise((resolve, reject) => {
     request.post(
@@ -40,11 +44,12 @@ module.exports = (req, res) => {
     console.log(`Saving authenticated data for user ${screen_name}`);
     console.dir(authenticatedData);
 
-    return db.saveCredentials({
+    return db.credentials.save({
       oauth_token, // this is not the same oauth_token as before. This is the user access token
       oauth_token_secret,
       user_id,
       screen_name,
+      access_request_token,
     });
   })
   .then(() => res.redirect(301, './thank-you.html'))

@@ -40,5 +40,6 @@ app.post('/status-update', routes['status-update']);
 app.get('/user-search', routes['user-search']);
 app.get('/save-credentials', routes['save-credentials']);
 app.get('/sign-in', routes['sign-in']);
+app.get('/app-get-access', routes['app-get-access']);
 
 module.exports = app;
