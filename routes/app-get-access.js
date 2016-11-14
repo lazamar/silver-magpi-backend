@@ -34,7 +34,8 @@ module.exports = (req, res) => {
 
       return res.json({
         app_session_id,
-        access_key: credentials.key,
+        access_token: credentials.key,
+        screen_name: credentials.screen_name,
         status: 'Authorised',
       });
     })
