@@ -1,8 +1,8 @@
-const credentials = {
-  "consumer_key": process.env.CONSUMER_KEY,
-  "consumer_secret": process.env.CONSUMER_SECRET,
-  "access_token_key": process.env.ACCESS_TOKEN_KEY,
-  "access_token_secret": process.env.ACCESS_TOKEN_SECRET,
+const serverCredentials = {
+  consumer_key: process.env.CONSUMER_KEY,
+  consumer_secret: process.env.CONSUMER_SECRET,
+  // "access_token_key": process.env.ACCESS_TOKEN_KEY,
+  // "access_token_secret": process.env.ACCESS_TOKEN_SECRET,
 };
 
 const Twitter = require('twitter');
@@ -13,7 +13,23 @@ function handleResponse(resolve, reject) {
   };
 }
 
-function twitterCall(method, client, url, reqParams) {
+function twitterCall(
+  method,
+  url,
+  reqParams,
+  { access_token_key, access_token_secret },
+  { consumer_key, consumer_secret }
+) {
+  const credentials = {
+    consumer_key,
+    consumer_secret,
+    access_token_key,
+    access_token_secret,
+  };
+
+  const client = new Twitter(credentials);
+
+
   return new Promise((resolve, reject) => {
     const responseHandler = handleResponse(resolve, reject);
     const params = reqParams
@@ -26,18 +42,23 @@ function twitterCall(method, client, url, reqParams) {
 
 
 module.exports = (function () {
-  const client = new Twitter(credentials);
-
   const API = {};
-  API.userHome = () => twitterCall('get', client, 'statuses/home_timeline');
-  API.postUpdate = status => twitterCall('post', client, 'statuses/update', { status });
-  API.userMentions = () => twitterCall('get', client, 'statuses/mentions_timeline');
-  API.userSearch = query =>
+  API.userHome = (userCredentials) =>
+    twitterCall('get', 'statuses/home_timeline', {}, userCredentials, serverCredentials);
+
+  API.postUpdate = (userCredentials, status) =>
+    twitterCall('post', 'statuses/update', { status }, userCredentials, serverCredentials);
+
+  API.userMentions = userCredentials =>
+  twitterCall('get', 'statuses/mentions_timeline', {}, userCredentials, serverCredentials);
+
+  API.userSearch = (userCredentials, query) =>
     twitterCall(
       'get',
-      client,
       'users/search',
-      { q: query, count: 5, include_entities: false }
+      { q: query, count: 5, include_entities: false },
+      userCredentials,
+      serverCredentials
     );
   return API;
 }());

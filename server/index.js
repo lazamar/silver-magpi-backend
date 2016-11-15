@@ -6,6 +6,7 @@ const path = require('path');
 
 const requireDir = require('require-dir-all');
 const routes = requireDir('../routes');
+const authenticate = require('./authenticate');
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
@@ -13,7 +14,10 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.use((req, res, next) => {
   // Allow CORS
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, X-App-Token'
+  );
 
   // Disable cache for all endpoints
   res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
@@ -34,12 +38,12 @@ query: ${JSON.stringify(req.query)}
 app.use('/', express.static(path.join(__dirname, '../static')));
 
 // Routes
-app.get('/home', routes.home);
-app.get('/mentions', routes.mentions);
-app.post('/status-update', routes['status-update']);
-app.get('/user-search', routes['user-search']);
+app.get('/home', authenticate, routes.home);
+app.get('/mentions', authenticate, routes.mentions);
+app.post('/status-update', authenticate, routes['status-update']);
+app.get('/user-search', authenticate, routes['user-search']);
 app.get('/save-credentials', routes['save-credentials']);
 app.get('/sign-in', routes['sign-in']);
-app.get('/app-get-access', routes['app-get-access']);
+app.get('/app-get-access', authenticate, routes['app-get-access']);
 
 module.exports = app;

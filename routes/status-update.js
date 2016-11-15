@@ -8,7 +8,7 @@ module.exports = (req, res) => {
   // const error = 'asdf';
   // res.status(500).send(JSON.stringify({ error }));
 
-  twitter.postUpdate(status)
+  twitter.postUpdate(res.locals.credentials, status)
     .then(response => send(res, response))
     .catch(error => {
       res.status(500).send(JSON.stringify({ error }));

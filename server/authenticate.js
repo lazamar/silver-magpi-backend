@@ -21,10 +21,10 @@ function getCredentials(app_session_id) {
       // For now we don't expose the user access token,
       // we return an authorised app_session_id instead.
       return {
-        app_session_id,
         access_token_key: credentials.key,
         access_token_secret: credentials.secret,
         screen_name: credentials.screen_name,
+        user_id: credentials.user_id,
       };
     });
 }
@@ -32,7 +32,7 @@ function getCredentials(app_session_id) {
 // Get credentials and add them to res.locals.credentials
 // or return an unauthorised error
 module.exports = (req, res, next) => {
-  const { app_session_id } = req.query;
+  const app_session_id = req.get('X-App-Token');
 
   getCredentials(app_session_id)
     .then(credentials => {

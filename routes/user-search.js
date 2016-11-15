@@ -12,7 +12,7 @@ module.exports = (req, res) => {
     return;
   }
 
-  twitter.userSearch(status)
+  twitter.userSearch(res.locals.credentials, status)
     .then(response => {
       cache.set(req, response);
       send(res, response);

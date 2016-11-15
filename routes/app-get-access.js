@@ -1,53 +1,13 @@
-// This request is made by the client app.
-// It is asking for a user token, which is needed to make requests
-// for a specific user.
-// The application will pass a session id, which is kept in the user's
-// localStorage. This session id will be recorded when the user authentication
-// goes through.
+/* eslint-disable camelcase */
 
-const db = require('../database');
-
+// Returns user infor if the app is authorised
 module.exports = (req, res) => {
-  const { app_session_id } = req.query;
+  const app_session_id = req.get('X-App-Token');
 
-  db.appAuthorisation.get(app_session_id)
-    .then(record => {
-      console.log(`
-        Record: ${record}
-      `);
-      if (!record) {
-        return Promise.reject();
-      }
-
-      // The authorisation request was found, now let's see if
-      // it was completed and a credentials record was created with it.
-      const { access_request_token } = record;
-      return db.credentials.getByRequestToken(access_request_token);
-    })
-    .then(credentials => {
-      console.log(`
-        Credentials: ${credentials}
-      `);
-      if (!credentials) {
-        return Promise.reject();
-      }
-
-      // For now we don't expose the user access token,
-      // we return an authorised app_session_id instead.
-      return res.json({
-        app_session_id,
-        access_token: app_session_id, // credentials.key,
-        screen_name: credentials.screen_name,
-        status: 'Authorised',
-      });
-    })
-    .catch(err => {
-      return err
-        ? res.status(500).send(`{ error: ${err}}`)
-        : res.json({
-          app_session_id,
-          token: null,
-          status: 'User not authenticated',
-        });
-    });
+  // For now, for simplicity, we are not creating a separate
+  // app_access_token, we are just using the app_session_id for that.
+  res.json({
+    app_access_token: app_session_id,
+    screen_name: res.locals.credentials.screen_name,
+  });
 };
