@@ -32,9 +32,11 @@ module.exports = (req, res) => {
         return Promise.reject();
       }
 
+      // For now we don't expose the user access token,
+      // we return an authorised app_session_id instead.
       return res.json({
         app_session_id,
-        access_token: credentials.key,
+        access_token: app_session_id, // credentials.key,
         screen_name: credentials.screen_name,
         status: 'Authorised',
       });
