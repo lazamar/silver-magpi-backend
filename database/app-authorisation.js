@@ -27,9 +27,7 @@ module.exports.save = ({ app_session_id, access_request_token }) => {
   const record = { app_session_id, access_request_token };
 
   // Remove any previous record with the same key
-  return dbDriver.remove(appAuthCollection, { key: record.key })
-    // Save key and password in the database
-    .then(() => dbDriver.insert(appAuthCollection, record));
+  return dbDriver.insert(appAuthCollection, record);
 };
 
 /**

@@ -16,7 +16,9 @@ function getCredentials(app_session_id) {
       const { access_request_token } = record;
       return db.credentials.getByRequestToken(access_request_token);
     })
-    .then(cred => cred || Promise.reject())
+    .then(cred => {
+      return cred || Promise.reject();
+    })
     .then(credentials => {
       // For now we don't expose the user access token,
       // we return an authorised app_session_id instead.
