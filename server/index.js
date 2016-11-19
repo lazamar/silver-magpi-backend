@@ -2,7 +2,9 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const path = require('path');
+
 
 const requireDir = require('require-dir-all');
 const routes = requireDir('../routes');
@@ -10,14 +12,11 @@ const authenticate = require('./authenticate');
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(cors()); // Allow CORS
 
 app.use((req, res, next) => {
-  // Allow CORS
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept, X-App-Token'
-  );
+  // Allow app access token in header
+  res.append('Access-Control-Allow-Headers', ['X-App-Token']);
 
   // Disable cache for all endpoints
   res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
@@ -45,5 +44,6 @@ app.get('/user-search', authenticate, routes['user-search']);
 app.get('/save-credentials', routes['save-credentials']);
 app.get('/sign-in', routes['sign-in']);
 app.get('/app-get-access', authenticate, routes['app-get-access']);
+app.delete('/app-revoke-access', authenticate, routes['app-revoke-access']);
 
 module.exports = app;

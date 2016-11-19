@@ -19,7 +19,7 @@ dbDriver.getDatabase(dbName)
 module.exports = {};
 
 /**
- * Save credentials
+ * Save authorisation
  * @method save
  * @return {Promise<void>} resolved when the record is successfully saved.
  */
@@ -31,13 +31,26 @@ module.exports.save = ({ app_session_id, access_request_token }) => {
 };
 
 /**
- * Get credentials
+ * Get authorisation
  * @method get
  * @param  {String} app_session_id
  * @return {Promise<Object>} resolves with object containing the access token and the appSessionId
  */
 module.exports.get = (app_session_id) => {
   return dbDriver.find(
+    appAuthCollection,
+    { app_session_id }
+  );
+};
+
+/**
+ * Remove authorisation
+ * @method remove
+ * @param  {String} app_session_id
+ * @return {Promise<void>}
+ */
+module.exports.remove = (app_session_id) => {
+  return dbDriver.remove(
     appAuthCollection,
     { app_session_id }
   );

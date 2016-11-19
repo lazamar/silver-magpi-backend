@@ -70,3 +70,16 @@ module.exports.getByAccessToken = (key) => {
     { key }
   );
 };
+
+/**
+ * Remove credentials
+ * @method removeByRequestToken
+ * @param  {String} key - The user access token
+ * @return {Promise<void>}
+ */
+module.exports.removeByRequestToken = (access_request_token) => {
+  return dbDriver.remove(
+    credentialsCol,
+    { access_request_token }
+  );
+};
