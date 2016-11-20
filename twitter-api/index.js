@@ -72,5 +72,14 @@ module.exports = (function () {
       serverCredentials
     );
 
+  API.retweet = (userCredentials, shouldRetweet, tweetId) =>
+    twitterCall(
+      'post',
+      `statuses/${shouldRetweet ? 'retweet' : 'unretweet'}/${tweetId}.json`,
+      { id: tweetId },
+      userCredentials,
+      serverCredentials
+    );
+
   return API;
 }());

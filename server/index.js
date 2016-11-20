@@ -52,5 +52,7 @@ app.post('/status-update', authenticate, routes['status-update']);
 app.get('/user-search', authenticate, routes['user-search']);
 app.post('/favorite', authenticate, routes['favorite']);
 app.delete('/favorite', authenticate, routes['favorite']);
+app.post('/retweet', authenticate, routes['retweet']);
+app.delete('/retweet', authenticate, routes['retweet']);
 
 module.exports = app;

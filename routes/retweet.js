@@ -4,19 +4,19 @@ const twitter = require('../twitter-api');
 module.exports = (req, res) => {
   const tweetId = req.query.id;
 
-  // POST favorites, DELETE unfavorites
-  const shouldFavorite = req.method === 'POST';
+  // POST retweets, DELETE unretweets
+  const shouldRetweet = req.method === 'POST';
 
-  twitter.favoriteTweet(
+  twitter.retweet(
     res.locals.credentials,
-    shouldFavorite,
+    shouldRetweet,
     tweetId
   )
   .then(_ => {
-    res.json({ status: `Tweet ${shouldFavorite ? 'favorited' : 'unfavorited'}` });
+    res.json({ status: 'Tweet retweted successfully' });
   })
   .catch(err => {
-    console.error('An error occurred when favoriting:', err);
+    console.error('An error occurred when retweeting:', err);
     res.status(500).send(`{ error: ${err}}`);
   });
 };
