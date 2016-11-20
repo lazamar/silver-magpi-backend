@@ -1,3 +1,4 @@
+/* eslint-disable dot-notation*/
 // Libraries
 const express = require('express');
 const app = express();
@@ -36,14 +37,20 @@ query: ${JSON.stringify(req.query)}
 // Serve static files from root
 app.use('/', express.static(path.join(__dirname, '../static/src')));
 
-// Routes
-app.get('/home', authenticate, routes.home);
-app.get('/mentions', authenticate, routes.mentions);
-app.post('/status-update', authenticate, routes['status-update']);
-app.get('/user-search', authenticate, routes['user-search']);
-app.get('/save-credentials', routes['save-credentials']);
+// Twitter authentication
 app.get('/sign-in', routes['sign-in']);
+app.get('/save-credentials', routes['save-credentials']);
+
+// App authentication
 app.get('/app-get-access', authenticate, routes['app-get-access']);
 app.delete('/app-revoke-access', authenticate, routes['app-revoke-access']);
+
+// Routes
+app.get('/home', authenticate, routes['home']);
+app.get('/mentions', authenticate, routes['mentions']);
+app.post('/status-update', authenticate, routes['status-update']);
+app.get('/user-search', authenticate, routes['user-search']);
+app.post('/favorite', authenticate, routes['favorite']);
+app.delete('/favorite', authenticate, routes['favorite']);
 
 module.exports = app;

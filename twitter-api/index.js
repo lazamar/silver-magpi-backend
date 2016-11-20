@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 const serverCredentials = {
   consumer_key: process.env.CONSUMER_KEY,
   consumer_secret: process.env.CONSUMER_SECRET,
@@ -50,7 +52,7 @@ module.exports = (function () {
     twitterCall('post', 'statuses/update', { status }, userCredentials, serverCredentials);
 
   API.userMentions = userCredentials =>
-  twitterCall('get', 'statuses/mentions_timeline', {}, userCredentials, serverCredentials);
+    twitterCall('get', 'statuses/mentions_timeline', {}, userCredentials, serverCredentials);
 
   API.userSearch = (userCredentials, query) =>
     twitterCall(
@@ -60,5 +62,15 @@ module.exports = (function () {
       userCredentials,
       serverCredentials
     );
+
+  API.favoriteTweet = (userCredentials, shouldFavorite, tweetId) =>
+    twitterCall(
+      'post',
+      `favorites/${shouldFavorite ? 'create' : 'destroy'}.json`,
+      { id: tweetId },
+      userCredentials,
+      serverCredentials
+    );
+
   return API;
 }());
