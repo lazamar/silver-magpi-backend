@@ -2,6 +2,9 @@
   position: relative;
   max-width: 900px;
   text-align: center;
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: 100vh;
 }
 
 .Landing-logo-container {
@@ -65,7 +68,7 @@
   font-size: 1.2em;
   padding: 1em;
   text-align: center;
-  margin: auto;
+  margin: 0 auto;
 }
 
 
@@ -75,7 +78,8 @@
 }
 
 .Landing-footer {
-  margin: 2em auto 3em;
+  margin: auto auto 3em;
+  padding-top: 2em;
   height: 3em;
   opacity: 0;
   animation: footerFadeInUp 1s ease-in-out forwards;
