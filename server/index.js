@@ -35,7 +35,7 @@ query: ${JSON.stringify(req.query)}
 });
 
 // Serve static files from root
-app.use('/', express.static(path.join(__dirname, '../static/src')));
+app.use('/', express.static(path.join(__dirname, '../static/dist')));
 
 // Twitter authentication
 app.get('/sign-in', routes['sign-in']);

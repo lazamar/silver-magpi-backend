@@ -3,39 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <title>Silver Magpie</title>
-  <link rel="stylesheet" href="./swiss.css">
-  <style>
-    body {
-      min-height: 100vh;
-      background-color: #efefef;
-    }
-
-    .thank-you {
-      display: flex;
-      flex-flow: row nowrap;
-      align-items: flex-start;
-      font-size: 1.3em;
-      line-height: 1.7em;
-      margin-top: 50px;
-    }
-
-    .logo  {
-      width: 100px;
-      margin: auto;
-      display: inline-block;
-    }
-
-  </style>
+  <link rel="stylesheet" href="/styles/main.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  <h1>Silver Magpie</h1>
+  <div class="Landing-container container">
 
-  <div class="thank-you">
-    <img class="logo" src="./logo.png" alt="Silver Magpie">
-    <div style="width:500px">
-      Thank you for signing up. <br>
-      You can now go back to the extension and you will be logged in. :)
+    <img class="Landing-title" alt="Silver Magpie" src="/images/silver-magpie.svg"/>
+
+    <img class="Landing-logo" src="/images/logo.png" alt="Silver Magpie">
+
+
+    <div class="Landing-content-info">
+        Thank you for signing up. <br>
+        You can now go back to the extension and you will be logged in. :)
     </div>
+
+  </div>
+
+  <div class="Landing-footer">
+    <p>Created with <i class="zmdi zmdi-favorite Landing-footer-heartIcon"></i> by <a href="http://lazamar.github.io" target="blank">Marcelo Lazaroni</a></p>
+    <p>Poetically written in <a href="http://elm-lang.org" target="blank">Elm</a></p>
   </div>
 </body>
 </html>
