@@ -1,6 +1,12 @@
 .Landing-container {
   position: relative;
   max-width: 900px;
+  text-align: center;
+}
+
+.Landing-logo-container {
+  margin: 5em auto 3em;
+  position: relative;
 }
 
 @-webkit-keyframes titleFadeInDown1 {
@@ -14,7 +20,6 @@
 }
 
 .Landing-title {
-  position: absolute;
   pointer-events: none;
   user-select: none;
   width: 100%;
@@ -22,14 +27,12 @@
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
   z-index: -1;
+  animation-name: titleFadeInDown1;
 
   &:nth-of-type(1) {
-    top: 0px;
-    animation-name: titleFadeInDown1;
   }
 
   &:nth-of-type(2) {
-    top: 185px;
     animation-name: titleFadeInDown2;
   }
 }
@@ -40,17 +43,22 @@
 }
 
 .Landing-logo {
+  position: absolute;
+  top: 0;
+  left:0;
+  right: 0;
+  bottom: 0;
   width: 200px;
+  margin: auto;
   max-width: 50%;
   display: block;
-  margin: 100px auto 50px;
   animation: logoFadeInDown 1s ease-out forwards;
 }
 
 
 .Landing-content-info {
   position: relative;
-  display: block;
+  display: inline-block;
   border-radius: 3px;
   background-color: #607D8B;
   color: white;
@@ -58,7 +66,6 @@
   padding: 1em;
   text-align: center;
   margin: auto;
-  max-width: 80%;
 }
 
 
