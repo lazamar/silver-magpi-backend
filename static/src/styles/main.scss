@@ -1,8 +1,10 @@
 @import './variables';
+@import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css';
 @import 'https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700';
 @import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
 @import './material-font';
 
+@import './common';
 @import './landing';
 
 body {

@@ -1,14 +1,15 @@
 .Landing-container {
   position: relative;
-  max-width: 900px;
+  max-width: 720px;
   text-align: center;
   display: flex;
   flex-flow: column nowrap;
   min-height: 100vh;
+  overflow: hidden
 }
 
 .Landing-logo-container {
-  margin: 5em auto 3em;
+  margin: 3em auto 3em;
   position: relative;
 }
 
@@ -60,15 +61,23 @@
 
 
 .Landing-content-info {
-  position: relative;
-  display: inline-block;
-  border-radius: 3px;
-  background-color: #607D8B;
-  color: white;
-  font-size: 1.2em;
-  padding: 1em;
-  text-align: center;
-  margin: 0 auto;
+  @extend .Common-infoCard;
+}
+
+.Landing-download {
+  @extend .Common-infoCard;
+  background-color: $brand-info;
+  margin: 2em auto;
+  transition: all .1s ease;
+
+  &, &:hover, &:active, &:focus, &:visited {
+    color: white;
+    text-decoration: none;
+  }
+
+  &:hover {
+    background-color: darken($brand-info, 3%);
+  }
 }
 
 
@@ -81,6 +90,7 @@
   margin: auto auto 3em;
   padding-top: 2em;
   height: 3em;
+  font-ize: .9em;
   opacity: 0;
   animation: footerFadeInUp 1s ease-in-out forwards;
 
@@ -93,7 +103,7 @@
 
 .Landing-footer-heartIcon {
   color: #e61865;
-  font-size: 1.09em;
+  font-size: 0.9em;
   position: relative;
   top: .05em;
   margin: 0 .1em;
