@@ -22,5 +22,8 @@ organiser.registerAll('./gulp-tasks', {
     dest,
     map: {},
   },
-
+  build: {
+    src: './',
+    tasks: ['copy-static', 'sass'],
+  },
 });
