@@ -44,15 +44,20 @@ function twitterCall(
 
 module.exports = (function () {
   const API = {};
-  API.userHome = (userCredentials, sinceId = '', maxId = '') => {
+  API.userTimeline = (userCredentials, timelineName, sinceId = '', maxId = '') => {
+    const timeline = timelineName === 'home'
+      ? 'home_timeline'
+      : 'mentions_timeline';
+
     const query = []
+      .concat('count=40')
       .concat(maxId.length > 1 ? `max_id=${maxId}` : [])
       .concat(sinceId.length > 1 ? `since_id=${sinceId}` : [])
       .join('&');
 
     return twitterCall(
       'get',
-      `statuses/home_timeline.json?${query}`,
+      `statuses/${timeline}.json?${query}`,
       {},
       userCredentials,
       serverCredentials
@@ -61,9 +66,6 @@ module.exports = (function () {
 
   API.postUpdate = (userCredentials, status) =>
     twitterCall('post', 'statuses/update', { status }, userCredentials, serverCredentials);
-
-  API.userMentions = userCredentials =>
-    twitterCall('get', 'statuses/mentions_timeline', {}, userCredentials, serverCredentials);
 
   API.userSearch = (userCredentials, query) =>
     twitterCall(

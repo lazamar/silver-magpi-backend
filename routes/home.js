@@ -12,7 +12,7 @@ module.exports = (req, res) => {
     ? bigInt(req.query.maxId).subtract(1).toString()
     : undefined;
 
-  twitter.userHome(res.locals.credentials, sinceId, maxId)
+  twitter.userTimeline(res.locals.credentials, 'home', sinceId, maxId)
     .then(tweets => send(res, { tweets }, 0))
     // If there is an error we will send a default response
     // while during testing
