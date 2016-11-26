@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-
 const serverCredentials = {
   consumer_key: process.env.CONSUMER_KEY,
   consumer_secret: process.env.CONSUMER_SECRET,
@@ -45,8 +44,20 @@ function twitterCall(
 
 module.exports = (function () {
   const API = {};
-  API.userHome = (userCredentials) =>
-    twitterCall('get', 'statuses/home_timeline', {}, userCredentials, serverCredentials);
+  API.userHome = (userCredentials, sinceId = '', maxId = '') => {
+    const query = []
+      .concat(maxId.length > 1 ? `max_id=${maxId}` : [])
+      .concat(sinceId.length > 1 ? `since_id=${sinceId}` : [])
+      .join('&');
+
+    return twitterCall(
+      'get',
+      `statuses/home_timeline.json?${query}`,
+      {},
+      userCredentials,
+      serverCredentials
+    );
+  };
 
   API.postUpdate = (userCredentials, status) =>
     twitterCall('post', 'statuses/update', { status }, userCredentials, serverCredentials);
