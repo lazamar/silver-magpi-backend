@@ -44,13 +44,13 @@ function twitterCall(
 
 module.exports = (function () {
   const API = {};
-  API.userTimeline = (userCredentials, timelineName, sinceId = '', maxId = '') => {
+  API.userTimeline = (userCredentials, timelineName, sinceId = '', maxId = '', count = '') => {
     const timeline = timelineName === 'home'
       ? 'home_timeline'
       : 'mentions_timeline';
 
     const query = []
-      .concat('count=40')
+      .concat(count ? `count=${count}` : [])
       .concat(maxId.length > 1 ? `max_id=${maxId}` : [])
       .concat(sinceId.length > 1 ? `since_id=${sinceId}` : [])
       .join('&');
