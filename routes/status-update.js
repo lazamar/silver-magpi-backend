@@ -3,12 +3,9 @@ const { send } = require('../utils');
 const twitter = require('../twitter-api');
 
 module.exports = (req, res) => {
-  const status = req.body.status;
-  // send(res, fakeResponse, 2000);
-  // const error = 'asdf';
-  // res.status(500).send(JSON.stringify({ error }));
+  const { status, in_reply_to_status_id } = req.body;
 
-  twitter.postUpdate(res.locals.credentials, status)
+  twitter.postUpdate(res.locals.credentials, status, in_reply_to_status_id)
     .then(response => send(res, response))
     .catch(error => {
       res.status(500).send(JSON.stringify({ error }));

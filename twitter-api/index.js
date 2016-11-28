@@ -1,4 +1,5 @@
-/* eslint-disable max-len */
+/* eslint-disable max-len, camelcase */
+
 const serverCredentials = {
   consumer_key: process.env.CONSUMER_KEY,
   consumer_secret: process.env.CONSUMER_SECRET,
@@ -64,8 +65,14 @@ module.exports = (function () {
     );
   };
 
-  API.postUpdate = (userCredentials, status) =>
-    twitterCall('post', 'statuses/update', { status }, userCredentials, serverCredentials);
+  API.postUpdate = (userCredentials, status, in_reply_to_status_id) =>
+    twitterCall(
+      'post',
+      'statuses/update',
+      { status, in_reply_to_status_id },
+      userCredentials,
+      serverCredentials
+    );
 
   API.userSearch = (userCredentials, query) =>
     twitterCall(
