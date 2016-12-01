@@ -54,5 +54,6 @@ app.post('/favorite', authenticate, routes['favorite']);
 app.delete('/favorite', authenticate, routes['favorite']);
 app.post('/retweet', authenticate, routes['retweet']);
 app.delete('/retweet', authenticate, routes['retweet']);
+app.get('/tweets-by-id', authenticate, routes['tweets-by-id']);
 
 module.exports = app;

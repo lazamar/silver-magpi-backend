@@ -101,5 +101,14 @@ module.exports = (function () {
       serverCredentials
     );
 
+  API.tweetsById = (userCredentials, ids) =>
+    twitterCall(
+      'get',
+      `statuses/lookup.json?id=${ids.join(',')}`,
+      {},
+      userCredentials,
+      serverCredentials
+    );
+
   return API;
 }());
