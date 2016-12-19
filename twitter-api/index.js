@@ -110,5 +110,13 @@ module.exports = (function () {
       serverCredentials
     );
 
+  API.mainUserDetails = (userCredentials) =>
+    twitterCall(
+      'get',
+      'account/verify_credentials.json',
+      {},
+      userCredentials,
+      serverCredentials
+    );
   return API;
 }());
